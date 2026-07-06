@@ -1,0 +1,29 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <span class="app-toolbar__title">{{ title }}</span>
+  <nav class="app-toolbar__nav">
+    @for (item of nav; track item.route) {
+      <a mat-button [routerLink]="item.route" routerLinkActive="app-toolbar__link--active">{{ item.label }}</a>
+    }
+  </nav>
+  <span style="flex:1 1 auto;"></span>
+  @if (isAuthenticated()) {
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_circle</mat-icon>
+      {{ currentUser()?.userName ?? 'Account' }}
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Sign out</span>
+      </button>
+    </mat-menu>
+  }
+</mat-toolbar>
+
+@if (loading()) {
+  <mat-progress-bar mode="indeterminate" class="app-loading"></mat-progress-bar>
+}
+
+<main class="app-content">
+  <router-outlet></router-outlet>
+</main>

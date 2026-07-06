@@ -1,0 +1,37 @@
+@if (mode === 'route') {
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="generic-tabs__nav">
+    @for (tab of visibleTabs(); track tab.key) {
+      <a
+        mat-tab-link
+        [routerLink]="tab.route"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+        [disabled]="tab.disabled">
+        @if (tab.icon) { <mat-icon class="generic-tabs__icon">{{ tab.icon }}</mat-icon> }
+        {{ tab.label }}
+      </a>
+    }
+  </nav>
+  <mat-tab-nav-panel #tabPanel>
+    <ng-content select="[tabs-outlet]"></ng-content>
+  </mat-tab-nav-panel>
+} @else {
+  <mat-tab-group
+    [selectedIndex]="selectedIndex()"
+    (selectedIndexChange)="onIndexChange($event)"
+    class="generic-tabs__group">
+    @for (tab of visibleTabs(); track tab.key) {
+      <mat-tab [disabled]="tab.disabled">
+        <ng-template mat-tab-label>
+          @if (tab.icon) { <mat-icon class="generic-tabs__icon">{{ tab.icon }}</mat-icon> }
+          {{ tab.label }}
+        </ng-template>
+      </mat-tab>
+    }
+  </mat-tab-group>
+
+  <div class="generic-tabs__panel">
+    <ng-content></ng-content>
+  </div>
+}

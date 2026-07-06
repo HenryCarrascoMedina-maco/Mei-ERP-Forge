@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ErpPlatformModuleSchematic",
+  "title": "ERP Platform — Generate Module",
+  "type": "object",
+  "properties": {
+    "manifest": {
+      "type": "string",
+      "description": "Path to the <Module>.module.json manifest.",
+      "x-prompt": "Path to the module manifest (.module.json)?"
+    },
+    "project": {
+      "type": "string",
+      "description": "Path to the Angular app root that contains src/app (and src/app/shared).",
+      "default": "."
+    }
+  },
+  "required": ["manifest"]
+}

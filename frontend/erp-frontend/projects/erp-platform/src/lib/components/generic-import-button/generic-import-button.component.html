@@ -1,0 +1,29 @@
+<div class="import-button">
+  <input #fileInput type="file" class="import-button__input" [accept]="accept" (change)="onFileChange($event)" />
+
+  <div class="import-button__actions">
+    <button
+      mat-stroked-button
+      [disabled]="disabled || loading"
+      [matTooltip]="tooltip ?? ''"
+      (click)="openPicker()">
+      @if (loading) {
+        <mat-spinner diameter="18"></mat-spinner>
+      } @else {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      {{ label }}
+    </button>
+
+    @if (showTemplate) {
+      <button mat-button (click)="templateDownload.emit()">
+        <mat-icon>download</mat-icon>
+        {{ templateLabel }}
+      </button>
+    }
+  </div>
+
+  @if (error()) {
+    <p class="import-button__error">{{ error() }}</p>
+  }
+</div>

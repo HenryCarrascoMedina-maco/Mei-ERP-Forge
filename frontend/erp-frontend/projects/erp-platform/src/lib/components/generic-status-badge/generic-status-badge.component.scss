@@ -1,0 +1,48 @@
+@use 'sass:list';
+
+// Semantic palette for badges. Tweak these tokens to match the app theme.
+$badge-colors: (
+  success: (#1b873f, #e6f4ea),
+  warning: (#9a6700, #fff4e5),
+  error:   (#b3261e, #fdeceb),
+  info:    (#1f5fad, #e7f0fb),
+  neutral: (#5f6368, #eef0f2),
+  primary: (#3f51b5, #e8eaf6),
+);
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  white-space: nowrap;
+
+  &__icon {
+    font-size: 0.95rem;
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+
+  @each $name, $pair in $badge-colors {
+    $fg: list.nth($pair, 1);
+    $bg: list.nth($pair, 2);
+
+    &--#{$name}.status-badge--soft {
+      color: $fg;
+      background: $bg;
+    }
+    &--#{$name}.status-badge--filled {
+      color: #fff;
+      background: $fg;
+    }
+    &--#{$name}.status-badge--outlined {
+      color: $fg;
+      background: transparent;
+      border: 1px solid $fg;
+    }
+  }
+}

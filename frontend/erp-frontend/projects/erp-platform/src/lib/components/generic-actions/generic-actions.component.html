@@ -1,0 +1,32 @@
+@if (mode === 'buttons') {
+  <div class="actions actions--buttons">
+    @for (action of visibleActions(); track action.key) {
+      <button
+        mat-icon-button
+        [color]="action.color === 'default' ? undefined : action.color"
+        [disabled]="isDisabled(action)"
+        [matTooltip]="action.tooltip ?? action.label"
+        (click)="onTrigger(action)">
+        @if (action.icon) {
+          <mat-icon>{{ action.icon }}</mat-icon>
+        } @else {
+          <span>{{ action.label }}</span>
+        }
+      </button>
+    }
+  </div>
+} @else {
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions">
+    <mat-icon>{{ menuIcon }}</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    @for (action of visibleActions(); track action.key) {
+      <button mat-menu-item [disabled]="isDisabled(action)" (click)="onTrigger(action)">
+        @if (action.icon) {
+          <mat-icon>{{ action.icon }}</mat-icon>
+        }
+        <span>{{ action.label }}</span>
+      </button>
+    }
+  </mat-menu>
+}

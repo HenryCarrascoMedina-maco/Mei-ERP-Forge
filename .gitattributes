@@ -1,0 +1,24 @@
+# Line-ending normalization.
+# Text files are stored as LF in the repo and checked out as LF on every platform,
+# so generated code (erpgen writes LF) never shows a phantom CRLF/LF diff on regeneration.
+* text=auto eol=lf
+
+# Windows batch scripts must keep CRLF to run correctly.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary assets — never convert.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.svg  text
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
+*.pdf     binary
+*.nupkg   binary
+*.snupkg  binary
+*.tgz     binary

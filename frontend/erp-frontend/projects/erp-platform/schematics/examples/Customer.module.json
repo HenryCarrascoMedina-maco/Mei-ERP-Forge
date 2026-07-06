@@ -1,0 +1,35 @@
+{
+  "$schema": "../schemas/module-manifest.schema.json",
+  "schemaVersion": "1.0",
+  "module": {
+    "name": "Customer",
+    "key": "customers",
+    "displayName": "Customer",
+    "pluralName": "Customers",
+    "icon": "groups",
+    "description": "Customer master data.",
+    "navigation": { "menuSection": "Sales", "order": 10 }
+  },
+  "entity": {
+    "base": "auditable",
+    "idType": "guid",
+    "fields": [
+      { "name": "code", "type": "text", "label": "Code", "required": true, "unique": true,
+        "validation": { "maxLength": 20 },
+        "ui": { "list": true, "sortable": true, "filterable": true, "filterType": "text", "colSpan": 6 } },
+      { "name": "name", "type": "text", "label": "Name", "required": true,
+        "ui": { "list": true, "sortable": true, "colSpan": 6 } },
+      { "name": "email", "type": "email", "label": "Email", "validation": { "email": true },
+        "ui": { "list": true, "colSpan": 6 } },
+      { "name": "segment", "type": "select", "label": "Segment",
+        "options": [ { "value": "enterprise", "label": "Enterprise" }, { "value": "smb", "label": "SMB" } ],
+        "ui": { "list": true, "filterable": true, "filterType": "select", "colSpan": 6 } },
+      { "name": "isActive", "type": "boolean", "label": "Status", "default": true,
+        "ui": { "list": true, "badge": true, "filterable": true, "filterType": "boolean", "align": "center", "colSpan": 6 } }
+    ]
+  },
+  "permissions": { "prefix": "customers" },
+  "list": { "defaultSort": { "field": "name", "direction": "asc" }, "selection": "multiple", "search": true },
+  "api": { "basePath": "sales", "resource": "customers" },
+  "features": { "paginated": true, "exportable": true, "importable": true, "audit": true }
+}

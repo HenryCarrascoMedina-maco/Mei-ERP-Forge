@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://erp-platform/schemas/module-manifest-1.0.json",
+  "title": "ERP Platform Module Manifest",
+  "description": "Declarative, domain-agnostic definition of an ERP module. Single source of truth for generating backend and frontend. v1.0 — backward-compatible: only additive changes within MAJOR 1.",
+  "type": "object",
+  "required": ["schemaVersion", "module", "entity"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$",
+      "description": "Manifest schema version (SemVer MAJOR.MINOR). Generators support the current MAJOR and migrate older minors."
+    },
+
+    "module": {
+      "type": "object",
+      "required": ["name", "key"],
+      "properties": {
+        "name": { "type": "string", "pattern": "^[A-Z][A-Za-z0-9]+$", "description": "PascalCase base name, e.g. \"Customer\"." },
+        "key": { "type": "string", "pattern": "^[a-z][a-z0-9-]+$", "description": "kebab-case key; default for route/resource/permission prefix." },
+        "displayName": { "type": "string" },
+        "pluralName": { "type": "string" },
+        "icon": { "type": "string", "description": "Material icon name." },
+        "description": { "type": "string" },
+        "navigation": {
+          "type": "object",
+          "properties": {
+            "route": { "type": "string" },
+            "menuSection": { "type": "string" },
+            "order": { "type": "integer" },
+            "showInMenu": { "type": "boolean", "default": true }
+          },
+          "patternProperties": { "^x-": {} },
+          "additionalProperties": false
+        }
+      },
+      "patternProperties": { "^x-": {} },
+      "additionalProperties": false
+    },
+
+    "entity": {
+      "type": "object",
+      "required": ["fields"],
+      "properties": {
+        "name": { "type": "string", "description": "Defaults to module.name." },
+        "idType": { "enum": ["guid", "int", "string"], "default": "guid" },
+        "base": { "enum": ["base", "auditable", "softDelete", "catalog"], "default": "auditable" },
+        "fields": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/field" } }
+      },
+      "patternProperties": { "^x-": {} },
+      "additionalProperties": false
+    },
+
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "prefix": { "type": "string", "description": "Defaults to module.key." },
+        "actions": { "type": "array", "items": { "enum": ["view", "create", "update", "delete", "export", "import"] } },
+        "view": { "type": "string" },
+        "create": { "type": "string" },
+        "update": { "type": "string" },
+        "delete": { "type": "string" },
+        "roles": { "type": "object", "description": "Reserved: role -> permission seed.", "additionalProperties": { "type": "array", "items": { "type": "string" } } },
+        "custom": { "type": "array", "items": { "type": "string" } }
+      },
+      "patternProperties": { "^x-": {} },
+      "additionalProperties": false
+    },
+
+    "list": {
+      "type": "object",
+      "properties": {
+        "columnsFrom": { "enum": ["fields"], "default": "fields" },
+        "defaultSort": {
+          "type": "object",
+          "properties": { "field": { "type": "string" }, "direction": { "enum": ["asc", "desc"] } },
+          "required": ["field"],
+          "additionalProperties": false
+        },
+        "pageSize": { "type": "integer", "minimum": 1 },
+        "pageSizeOptions": { "type": "array", "items": { "type": "integer" } },
+        "selection": { "enum": ["none", "single", "multiple"], "default": "none" },
+        "search": { "type": "boolean", "default": true },
+        "filtersFrom": { "enum": ["fields"], "default": "fields" }
+      },
+      "patternProperties": { "^x-": {} },
+      "additionalProperties": false
+    },
+
+    "form": {
+      "type": "object",
+      "properties": {
+        "layoutColumns": { "type": "integer", "minimum": 1, "maximum": 12, "default": 12 },
+        "sections": {
+          "type": "array",
+          "description": "Reserved: group fields into titled sections. MVP renders a single section.",
+          "items": {
+            "type": "object",
+            "properties": { "title": { "type": "string" }, "fields": { "type": "array", "items": { "type": "string" } } },
+            "additionalProperties": false
+          }
+        }
+      },
+      "patternProperties": { "^x-": {} },
+      "additionalProperties": false
+    },
+
+    "api": {
+      "type": "object",
+      "properties": {
+        "basePath": { "type": "string", "description": "Optional path segment, e.g. \"sales\" -> /api/sales/{resource}." },
+        "resource": { "type": "string", "description": "Defaults to module.key." },
+        "endpoints": {
+          "type": "object",
+          "properties": {
+            "list": { "type": "boolean", "default": true },
+            "get": { "type": "boolean", "default": true },
+            "create": { "type": "boolean", "default": true },
+            "update": { "type": "boolean", "default": true },
+            "delete": { "type": "boolean", "default": true },
+            "export": { "type": "boolean", "default": false },
+            "import": { "type": "boolean", "default": false }
+          },
+          "patternProperties": { "^x-": {} },
+          "additionalProperties": false
+        }
+      },
+      "patternProperties": { "^x-": {} },
+      "additionalProperties": false
+    },
+
+    "features": {
+      "type": "object",
+      "properties": {
+        "paginated": { "type": "boolean", "default": true },
+        "searchable": { "type": "boolean", "default": true },
+        "sortable": { "type": "boolean", "default": true },
+        "filterable": { "type": "boolean", "default": true },
+        "exportable": { "type": "boolean", "default": false },
+        "importable": { "type": "boolean", "default": false },
+        "audit": { "type": "boolean", "default": false },
+        "softDelete": { "type": "boolean", "default": false },
+        "statusToggle": { "type": "boolean", "default": false }
+      },
+      "patternProperties": { "^x-": {} },
+      "additionalProperties": false
+    },
+
+    "tenant": { "$ref": "#/$defs/reserved", "description": "Reserved: multi-tenancy (strategy/isolation)." },
+    "theme": { "$ref": "#/$defs/reserved", "description": "Reserved: per-module theming/density." },
+    "whiteLabel": { "$ref": "#/$defs/reserved", "description": "Reserved: white-label/branding." },
+    "i18n": { "$ref": "#/$defs/reserved", "description": "Reserved: labels-as-keys, translations." },
+    "layout": { "$ref": "#/$defs/reserved", "description": "Reserved: shell region/breadcrumb placement." },
+    "hooks": { "$ref": "#/$defs/reserved", "description": "Reserved: lifecycle hook declarations." },
+
+    "x-extensions": { "type": "object", "description": "Free-form forward-compatibility bag." }
+  },
+
+  "patternProperties": { "^x-": {} },
+  "additionalProperties": false,
+
+  "$defs": {
+    "field": {
+      "type": "object",
+      "required": ["name", "type", "label"],
+      "properties": {
+        "name": { "type": "string", "pattern": "^[a-z][A-Za-z0-9]*$", "description": "camelCase property name." },
+        "type": {
+          "enum": ["text", "textarea", "number", "decimal", "currency", "boolean", "date", "datetime",
+                   "email", "password", "select", "multiselect", "autocomplete", "reference", "file"]
+        },
+        "label": { "type": "string" },
+        "required": { "type": "boolean", "default": false },
+        "unique": { "type": "boolean", "default": false },
+        "default": {},
+        "validation": {
+          "type": "object",
+          "properties": {
+            "min": { "type": "number" },
+            "max": { "type": "number" },
+            "minLength": { "type": "integer" },
+            "maxLength": { "type": "integer" },
+            "pattern": { "type": "string" },
+            "email": { "type": "boolean" }
+          },
+          "patternProperties": { "^x-": {} },
+          "additionalProperties": false
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["value", "label"],
+            "properties": { "value": {}, "label": { "type": "string" } },
+            "additionalProperties": false
+          }
+        },
+        "optionsSource": { "type": "object", "description": "Reserved: dynamic options (enum/endpoint)." },
+        "reference": {
+          "type": "object",
+          "description": "Reserved: FK relation to another module.",
+          "properties": { "module": { "type": "string" }, "valueField": { "type": "string" }, "labelField": { "type": "string" } },
+          "additionalProperties": false
+        },
+        "ui": {
+          "type": "object",
+          "properties": {
+            "list": { "type": "boolean", "default": false },
+            "sortable": { "type": "boolean", "default": false },
+            "filterable": { "type": "boolean", "default": false },
+            "filterType": { "enum": ["text", "select", "boolean", "date", "daterange"] },
+            "colSpan": { "type": "integer", "minimum": 1, "maximum": 12, "default": 12 },
+            "align": { "enum": ["left", "center", "right"] },
+            "badge": { "type": "boolean", "default": false },
+            "hidden": { "type": "boolean", "default": false },
+            "readonlyOn": { "type": "array", "items": { "enum": ["create", "edit"] } }
+          },
+          "patternProperties": { "^x-": {} },
+          "additionalProperties": false
+        }
+      },
+      "patternProperties": { "^x-": {} },
+      "additionalProperties": false
+    },
+
+    "reserved": {
+      "type": "object",
+      "description": "Reserved section: typed but inert in the MVP. Activated additively in future minors.",
+      "patternProperties": { "^x-": {} }
+    }
+  }
+}

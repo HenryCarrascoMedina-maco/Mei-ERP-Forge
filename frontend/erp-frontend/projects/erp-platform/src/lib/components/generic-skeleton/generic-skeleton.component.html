@@ -1,0 +1,64 @@
+<div
+  class="skeleton skeleton--{{ type }}"
+  [class.skeleton--animated]="animated"
+  [style.height]="height"
+  [style.width]="width">
+
+  @switch (type) {
+    @case ('table') {
+      <div class="skeleton__table-header">
+        @for (col of columnItems(); track $index) {
+          <span class="skeleton__box"></span>
+        }
+      </div>
+      @for (row of rowItems(); track $index) {
+        <div class="skeleton__table-row">
+          @for (col of columnItems(); track $index) {
+            <span class="skeleton__box"></span>
+          }
+        </div>
+      }
+    }
+
+    @case ('form') {
+      @for (row of rowItems(); track $index) {
+        <div class="skeleton__field">
+          <span class="skeleton__box skeleton__box--label"></span>
+          <span class="skeleton__box skeleton__box--input"></span>
+        </div>
+      }
+    }
+
+    @case ('card') {
+      <div class="skeleton__card">
+        <span class="skeleton__box skeleton__box--title"></span>
+        <span class="skeleton__box skeleton__box--line"></span>
+        <span class="skeleton__box skeleton__box--line"></span>
+        <span class="skeleton__box skeleton__box--line skeleton__box--short"></span>
+      </div>
+    }
+
+    @case ('dashboard') {
+      <div class="skeleton__dashboard">
+        @for (card of columnItems(); track $index) {
+          <span class="skeleton__box skeleton__box--kpi"></span>
+        }
+      </div>
+    }
+
+    @case ('detail') {
+      @for (row of rowItems(); track $index) {
+        <div class="skeleton__detail-row">
+          <span class="skeleton__box skeleton__box--label"></span>
+          <span class="skeleton__box skeleton__box--value"></span>
+        </div>
+      }
+    }
+
+    @default {
+      @for (row of rowItems(); track $index) {
+        <span class="skeleton__box skeleton__box--line"></span>
+      }
+    }
+  }
+</div>

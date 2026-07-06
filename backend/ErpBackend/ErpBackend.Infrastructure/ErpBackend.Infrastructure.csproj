@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\ErpBackend.Domain\ErpBackend.Domain.csproj" />
+    <ProjectReference Include="..\ErpBackend.Application\ErpBackend.Application.csproj" />
+    <ProjectReference Include="..\ErpBackend.CrossCutting\ErpBackend.CrossCutting.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

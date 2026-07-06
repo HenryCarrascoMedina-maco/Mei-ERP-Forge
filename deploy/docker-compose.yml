@@ -1,0 +1,41 @@
+# ERP Forge — public demo stack (single host).
+#   web  : Caddy — TLS + serves the Angular SPA + reverse-proxies /api → api
+#   api  : .NET 10 backend (internal only), SQLite on a persistent volume
+# Usage: copy .env.example to .env, fill secrets, then `docker compose up -d --build`.
+
+services:
+  api:
+    build:
+      context: ../backend/ErpBackend
+      dockerfile: ../../deploy/Dockerfile.api
+    env_file: .env
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+    volumes:
+      - erp-data:/data
+    expose:
+      - "8080"
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ../frontend/erp-frontend
+      dockerfile: ../../deploy/Dockerfile.web
+    environment:
+      DOMAIN: ${DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  erp-data:
+  caddy-data:
+  caddy-config:

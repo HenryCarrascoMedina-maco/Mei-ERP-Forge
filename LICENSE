@@ -1,0 +1,49 @@
+ERP Platform Starter Kit — Proprietary Commercial License
+
+Copyright (c) 2026 ERP Platform. All rights reserved.
+
+This software (the "Software") — including its source code, the Angular library
+(@erp-platform/*), the .NET packages (ErpPlatform.*), the code generator, templates,
+documentation and all related materials — is licensed, not sold. It is a commercial
+product and is made available only to customers under a written commercial agreement
+with the copyright holder.
+
+1. GRANT
+   Subject to a valid commercial agreement and payment of the applicable fees, the
+   copyright holder grants the licensed customer a non-exclusive, non-transferable
+   right to use and modify the Software to build and operate the customer's own
+   applications ("Derived Applications").
+
+2. PERMITTED USE
+   The licensed customer MAY:
+   - use the Software as the foundation of their own ERP / business applications;
+   - modify, extend and rebrand the Software for those applications;
+   - deploy the resulting Derived Applications to their own or their clients' environments.
+
+3. RESTRICTIONS
+   Except as expressly allowed by the commercial agreement, the customer MAY NOT:
+   - redistribute, resell, sublicense, publish or open-source the Software itself
+     (as opposed to a genuine Derived Application built on top of it);
+   - remove or obscure copyright, license or attribution notices;
+   - use the Software to create a product that competes with it as a template,
+     starter kit or code generator.
+
+4. OWNERSHIP
+   The copyright holder retains all right, title and interest in and to the Software.
+   No rights are granted except those expressly stated here or in the commercial agreement.
+
+5. NO WARRANTY
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+   INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+   PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+6. LIMITATION OF LIABILITY
+   IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+   OR IN CONNECTION WITH THE SOFTWARE OR ITS USE.
+
+7. PRECEDENCE
+   Where a signed commercial agreement exists between the copyright holder and the
+   customer, the terms of that agreement govern and take precedence over this file.
+
+For licensing inquiries, contact the copyright holder.

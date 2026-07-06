@@ -1,0 +1,21 @@
+{
+  "name": "@erp-platform/core",
+  "version": "1.0.0",
+  "description": "ERP Platform — reusable Angular component & service library (placeholder scope).",
+  "schematics": "./schematics/collection.json",
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "@angular/forms": "^19.2.0",
+    "@angular/router": "^19.2.0",
+    "@angular/cdk": "^19.2.0",
+    "@angular/material": "^19.2.0",
+    "rxjs": "^7.8.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "sideEffects": false
+}

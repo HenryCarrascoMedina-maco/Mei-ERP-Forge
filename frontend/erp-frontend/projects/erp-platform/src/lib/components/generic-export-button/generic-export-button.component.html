@@ -1,0 +1,35 @@
+@if (isMenu) {
+  <button
+    mat-stroked-button
+    [matMenuTriggerFor]="menu"
+    [disabled]="disabled || loading"
+    [matTooltip]="tooltip ?? ''">
+    @if (loading) {
+      <mat-spinner diameter="18"></mat-spinner>
+    } @else {
+      <mat-icon>{{ icon }}</mat-icon>
+    }
+    {{ label }}
+  </button>
+  <mat-menu #menu="matMenu">
+    @for (type of types; track type) {
+      <button mat-menu-item (click)="trigger(type)">
+        <mat-icon>{{ meta(type).icon }}</mat-icon>
+        <span>{{ meta(type).label }}</span>
+      </button>
+    }
+  </mat-menu>
+} @else {
+  <button
+    mat-stroked-button
+    [disabled]="disabled || loading"
+    [matTooltip]="tooltip ?? ''"
+    (click)="trigger(types[0])">
+    @if (loading) {
+      <mat-spinner diameter="18"></mat-spinner>
+    } @else {
+      <mat-icon>{{ icon }}</mat-icon>
+    }
+    {{ label }}
+  </button>
+}

@@ -1,0 +1,86 @@
+<form [formGroup]="form" class="generic-filter" (ngSubmit)="apply()">
+  <div class="generic-filter__grid">
+    @if (showSearch) {
+      <mat-form-field appearance="outline" class="generic-filter__field generic-filter__field--search">
+        <mat-label>Search</mat-label>
+        <input matInput formControlName="search" [placeholder]="searchPlaceholder" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    }
+
+    @for (field of fields; track field.key) {
+      <div class="generic-filter__field" [style.grid-column]="'span ' + (field.colSpan ?? 3)">
+        @switch (field.type) {
+          @case ('select') {
+            <mat-form-field appearance="outline" class="generic-filter__control">
+              <mat-label>{{ field.label }}</mat-label>
+              <mat-select [formControlName]="field.key">
+                <mat-option [value]="null">All</mat-option>
+                @for (opt of field.options ?? []; track opt.value) {
+                  <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          }
+          @case ('multiselect') {
+            <mat-form-field appearance="outline" class="generic-filter__control">
+              <mat-label>{{ field.label }}</mat-label>
+              <mat-select [formControlName]="field.key" multiple>
+                @for (opt of field.options ?? []; track opt.value) {
+                  <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          }
+          @case ('boolean') {
+            <mat-form-field appearance="outline" class="generic-filter__control">
+              <mat-label>{{ field.label }}</mat-label>
+              <mat-select [formControlName]="field.key">
+                <mat-option [value]="null">All</mat-option>
+                <mat-option [value]="true">Active</mat-option>
+                <mat-option [value]="false">Inactive</mat-option>
+              </mat-select>
+            </mat-form-field>
+          }
+          @case ('date') {
+            <mat-form-field appearance="outline" class="generic-filter__control">
+              <mat-label>{{ field.label }}</mat-label>
+              <input matInput [matDatepicker]="picker" [formControlName]="field.key" />
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          }
+          @case ('daterange') {
+            <mat-form-field appearance="outline" class="generic-filter__control">
+              <mat-label>{{ field.label }} from</mat-label>
+              <input matInput [matDatepicker]="from" [formControlName]="field.key + 'From'" />
+              <mat-datepicker-toggle matIconSuffix [for]="from"></mat-datepicker-toggle>
+              <mat-datepicker #from></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="generic-filter__control">
+              <mat-label>{{ field.label }} to</mat-label>
+              <input matInput [matDatepicker]="to" [formControlName]="field.key + 'To'" />
+              <mat-datepicker-toggle matIconSuffix [for]="to"></mat-datepicker-toggle>
+              <mat-datepicker #to></mat-datepicker>
+            </mat-form-field>
+          }
+          @default {
+            <mat-form-field appearance="outline" class="generic-filter__control">
+              <mat-label>{{ field.label }}</mat-label>
+              <input matInput [formControlName]="field.key" [placeholder]="field.placeholder ?? ''" />
+            </mat-form-field>
+          }
+        }
+      </div>
+    }
+  </div>
+
+  <div class="generic-filter__actions">
+    <button type="button" mat-button (click)="clear()">
+      <mat-icon>clear</mat-icon> Clear
+    </button>
+    <button type="submit" mat-flat-button color="primary">
+      <mat-icon>filter_alt</mat-icon> Apply
+    </button>
+  </div>
+</form>

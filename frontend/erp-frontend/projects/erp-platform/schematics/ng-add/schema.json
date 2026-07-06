@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ErpPlatformNgAdd",
+  "title": "@erp-platform/core ng-add",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "Target project (defaults to the workspace's default application)."
+    },
+    "apiUrl": {
+      "type": "string",
+      "description": "Backend API base URL the platform should call.",
+      "default": "/api"
+    }
+  }
+}

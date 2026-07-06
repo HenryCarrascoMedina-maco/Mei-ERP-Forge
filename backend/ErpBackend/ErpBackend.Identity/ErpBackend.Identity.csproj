@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- NuGet package metadata. Assembly/namespace stay ErpBackend.* (rename is a later follow-up);
+       only the published PackageId is the product name. -->
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <PackageId>ErpPlatform.Identity</PackageId>
+    <Title>ERP Platform — Identity</Title>
+    <Description>Lightweight, persistent authentication/authorization for the ERP Platform: User/Role/UserRole/RefreshToken entities (EF Core), real login + persisted refresh-token rotation, idempotent admin/role/permission seeding, and a drop-in AuthController. Built on ErpPlatform.CrossCutting (PasswordHelper/JwtHelper/permission claims) + ErpPlatform.Persistence. Reuses the existing permission-claim authorization unchanged.</Description>
+    <PackageTags>erp;platform;identity;authentication;authorization;jwt;rbac;refresh-token;framework</PackageTags>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+    <None Include="README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ErpBackend.CrossCutting\ErpBackend.CrossCutting.csproj" />
+    <ProjectReference Include="..\ErpBackend.Persistence\ErpBackend.Persistence.csproj" />
+  </ItemGroup>
+
+  <!-- Hosts controllers + DI extensions, so it needs the ASP.NET Core framework types. -->
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.8" />
+  </ItemGroup>
+
+</Project>

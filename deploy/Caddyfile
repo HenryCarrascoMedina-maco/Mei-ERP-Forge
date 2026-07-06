@@ -1,0 +1,32 @@
+# ERP Forge — demo reverse proxy.
+# DOMAIN drives the site address:
+#   - a hostname (e.g. demo.erpforge.dev) -> automatic HTTPS via Let's Encrypt
+#   - ":80"                                -> plain HTTP (local docker smoke test)
+
+{
+	email {$ACME_EMAIL}
+}
+
+{$DOMAIN} {
+	encode gzip
+
+	# API → backend container (same origin, no CORS needed).
+	handle /api/* {
+		reverse_proxy api:8080
+	}
+
+	# Everything else → the Angular SPA (static files + client-side routing fallback).
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+}

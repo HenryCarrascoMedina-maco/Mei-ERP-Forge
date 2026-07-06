@@ -1,0 +1,22 @@
+<!--
+  ERP Platform backend generator (dotnet tool `erpgen`).
+  Reads a <Module>.module.json manifest (same file the frontend uses) and emits a backend module
+  using ErpPlatform.CrossCutting. Not part of the solution (standalone tool).
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>erpgen</ToolCommandName>
+    <PackageId>ErpPlatform.Cli</PackageId>
+    <Title>ERP Platform — Backend Generator (erpgen)</Title>
+    <Description>Reads a &lt;Module&gt;.module.json manifest and generates a backend module (entity, DTOs + validation, permissions, repository, controller, DI) on top of ErpPlatform.CrossCutting.</Description>
+    <PackageTags>erp;platform;generator;dotnet-tool;codegen;scaffolding</PackageTags>
+  </PropertyGroup>
+
+</Project>

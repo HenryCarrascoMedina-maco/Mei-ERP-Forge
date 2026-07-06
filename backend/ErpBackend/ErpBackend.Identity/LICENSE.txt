@@ -1,0 +1,10 @@
+ERP Platform — Proprietary Commercial License (Placeholder)
+
+Copyright (c) 2026 ERP Platform. All rights reserved.
+
+This package is licensed, not sold. It is part of the ERP Platform commercial product and is
+provided to licensed customers only. Redistribution, sublicensing, or public publication is not
+permitted without a written agreement.
+
+This is a placeholder license for the v1.0.0-rc evaluation. The final commercial license terms will
+be provided with the official release.

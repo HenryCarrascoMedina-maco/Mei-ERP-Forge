@@ -1,0 +1,33 @@
+{
+  "$schema": "../schemas/module-manifest.schema.json",
+  "schemaVersion": "1.0",
+  "module": {
+    "name": "Product",
+    "key": "products",
+    "displayName": "Product",
+    "pluralName": "Products",
+    "icon": "inventory_2",
+    "description": "Product catalog.",
+    "navigation": { "menuSection": "Catalog", "order": 20 }
+  },
+  "entity": {
+    "base": "catalog",
+    "idType": "guid",
+    "fields": [
+      { "name": "sku", "type": "text", "label": "SKU", "required": true, "unique": true,
+        "ui": { "list": true, "sortable": true, "filterable": true, "filterType": "text", "colSpan": 6 } },
+      { "name": "name", "type": "text", "label": "Name", "required": true,
+        "ui": { "list": true, "sortable": true, "colSpan": 6 } },
+      { "name": "price", "type": "currency", "label": "Price", "required": true, "validation": { "min": 0 },
+        "ui": { "list": true, "sortable": true, "align": "right", "colSpan": 6 } },
+      { "name": "stock", "type": "number", "label": "Stock", "validation": { "min": 0 },
+        "ui": { "list": true, "align": "right", "colSpan": 6 } },
+      { "name": "isActive", "type": "boolean", "label": "Status", "default": true,
+        "ui": { "list": true, "badge": true, "filterable": true, "filterType": "boolean", "align": "center", "colSpan": 6 } }
+    ]
+  },
+  "permissions": { "prefix": "products" },
+  "list": { "defaultSort": { "field": "name", "direction": "asc" }, "selection": "single", "search": true },
+  "api": { "basePath": "catalog", "resource": "products" },
+  "features": { "paginated": true, "exportable": true, "audit": false }
+}

@@ -1,0 +1,54 @@
+<div class="page">
+  <app-generic-page-header
+    title="Dashboard"
+    subtitle="Overview built entirely from reusable KPI and card components."
+    [breadcrumbs]="breadcrumbs">
+  </app-generic-page-header>
+
+  @if (loading()) {
+    <app-generic-skeleton type="dashboard" [columns]="4" />
+    <app-generic-skeleton type="card" />
+  } @else if (stats()) {
+    @if (stats(); as data) {
+    <div class="dash-grid dash-grid--kpis">
+      @for (kpi of data.kpis; track kpi.key) {
+        <app-generic-kpi-card
+          [title]="kpi.label"
+          [value]="kpi.value"
+          [icon]="iconFor(kpi.key)"
+          [percentage]="kpi.percentage"
+          [trend]="kpi.trend"
+          [status]="kpi.status" />
+      }
+    </div>
+
+    <div class="dash-grid dash-grid--two">
+      <app-generic-card title="Status summary" icon="donut_large">
+        <ul class="summary-list">
+          @for (item of data.statusSummary; track item.status) {
+            <li class="summary-list__row">
+              <app-generic-status-badge [status]="item.status" />
+              <span class="summary-list__count">{{ item.count }}</span>
+            </li>
+          }
+        </ul>
+      </app-generic-card>
+
+      <app-generic-card title="Recent records" icon="history">
+        <ul class="recent-list">
+          @for (item of data.recent; track item.title) {
+            <li class="recent-list__row">
+              <div class="recent-list__info">
+                <span class="recent-list__title">{{ item.title }}</span>
+                <span class="recent-list__subtitle">{{ item.subtitle }}</span>
+              </div>
+              <app-generic-status-badge [status]="item.status" />
+              <span class="recent-list__date">{{ item.date | dateFormat:'datetime' }}</span>
+            </li>
+          }
+        </ul>
+      </app-generic-card>
+    </div>
+    }
+  }
+</div>

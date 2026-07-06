@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>930465a1-c9f0-4006-add6-d0c58cb40209</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8" />
+    <!-- Security override: pin the patched Microsoft.OpenApi (transitive 2.0.0 is flagged NU1903 /
+         GHSA-v5pm-xwqc-g5wc). Stays on the 2.x line for AspNetCore.OpenApi 10.0.8 compatibility. -->
+    <PackageReference Include="Microsoft.OpenApi" Version="2.9.0" />
+    <!-- Design-time only: enables `dotnet ef migrations`/`database update` (used from Slice 4). -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ErpBackend.Application\ErpBackend.Application.csproj" />
+    <ProjectReference Include="..\ErpBackend.Infrastructure\ErpBackend.Infrastructure.csproj" />
+    <ProjectReference Include="..\ErpBackend.CrossCutting\ErpBackend.CrossCutting.csproj" />
+    <ProjectReference Include="..\ErpBackend.Persistence\ErpBackend.Persistence.csproj" />
+    <ProjectReference Include="..\ErpBackend.Identity\ErpBackend.Identity.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/tools/">
+    <Project Path="tools/ErpPlatform.Cli/ErpPlatform.Cli.csproj" />
+  </Folder>
+  <Project Path="ErpBackend.Api/ErpBackend.Api.csproj" />
+  <Project Path="ErpBackend.Application/ErpBackend.Application.csproj" />
+  <Project Path="ErpBackend.CrossCutting/ErpBackend.CrossCutting.csproj" />
+  <Project Path="ErpBackend.Domain/ErpBackend.Domain.csproj" />
+  <Project Path="ErpBackend.Identity/ErpBackend.Identity.csproj" />
+  <Project Path="ErpBackend.Infrastructure/ErpBackend.Infrastructure.csproj" />
+  <Project Path="ErpBackend.Persistence/ErpBackend.Persistence.csproj" />
+  <Project Path="ErpBackend.Tests/ErpBackend.Tests.csproj" />
+</Solution>

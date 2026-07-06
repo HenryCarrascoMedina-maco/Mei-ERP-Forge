@@ -1,0 +1,27 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  &__content {
+    min-width: 320px;
+  }
+
+  // Size hints map to dialog width; the host MatDialog may override via its own config.
+  &--sm { width: 360px; }
+  &--md { width: 560px; }
+  &--lg { width: 800px; }
+  &--xl { width: 1040px; }
+}

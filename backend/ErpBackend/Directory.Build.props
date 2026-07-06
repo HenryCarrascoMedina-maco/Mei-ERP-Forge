@@ -1,0 +1,9 @@
+<!-- Shared MSBuild properties for all ErpBackend projects. -->
+<Project>
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <Product>ERP Platform</Product>
+    <Company>ERP Platform</Company>
+    <Authors>ERP Platform</Authors>
+  </PropertyGroup>
+</Project>

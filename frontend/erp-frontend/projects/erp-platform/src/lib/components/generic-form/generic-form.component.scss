@@ -1,0 +1,44 @@
+.generic-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  &__section-header {
+    margin-bottom: 0.75rem;
+
+    h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    p {
+      margin: 0.25rem 0 0;
+      font-size: 0.85rem;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  // 12-column responsive grid; fields declare their span via colSpan.
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0 1rem;
+  }
+
+  &__form-field {
+    width: 100%;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    &__field {
+      grid-column: span 12 !important;
+    }
+  }
+}

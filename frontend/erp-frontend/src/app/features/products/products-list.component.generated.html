@@ -1,0 +1,29 @@
+<div class="page">
+  <app-generic-page-header
+    title="Products"
+    [breadcrumbs]="breadcrumbs"
+    [primaryAction]="newAction"
+    (actionClick)="openCreate()">
+    <app-generic-export-button page-header-content [types]="['csv']" (exportClick)="exportCsv()" />
+  </app-generic-page-header>
+
+  <app-generic-card>
+    <app-generic-filter [fields]="filterFields" (filterChange)="onFilter($event)" />
+  </app-generic-card>
+
+  <app-generic-card>
+    <app-generic-table
+      [columns]="columns"
+      [data]="rows()"
+      [config]="config"
+      [rowActions]="rowActions"
+      [loading]="loading()"
+      [page]="page"
+      [pageSize]="pageSize"
+      [totalItems]="total()"
+      (pageChange)="onPage($event)"
+      (sortChange)="onSort($event)"
+      (actionClick)="onAction($event)">
+    </app-generic-table>
+  </app-generic-card>
+</div>

@@ -1,0 +1,32 @@
+<!--
+  Copy to `nuget.config` (gitignored) and provide credentials via the OS credential store or CI
+  secrets — do NOT hardcode tokens here. Adds your PRIVATE NuGet feed alongside nuget.org.
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+    <add key="erp-platform" value="https://YOUR-PRIVATE-NUGET-FEED/index.json" protocolVersion="3" />
+  </packageSources>
+
+  <!-- Credentials: prefer `dotnet nuget add source ... -u <user> -p <token>` (stored encrypted),
+       or inject ERP_NUGET_USER / ERP_NUGET_TOKEN as masked CI secrets. Example (commented):
+  <packageSourceCredentials>
+    <erp-platform>
+      <add key="Username" value="%ERP_NUGET_USER%" />
+      <add key="ClearTextPassword" value="%ERP_NUGET_TOKEN%" />
+    </erp-platform>
+  </packageSourceCredentials>
+  -->
+
+  <!-- Optionally scope ErpPlatform.* packages to the private feed only:
+  <packageSourceMapping>
+    <packageSource key="erp-platform">
+      <package pattern="ErpPlatform.*" />
+    </packageSource>
+    <packageSource key="nuget.org">
+      <package pattern="*" />
+    </packageSource>
+  </packageSourceMapping>
+  -->
+</configuration>

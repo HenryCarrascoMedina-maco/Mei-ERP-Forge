@@ -1,0 +1,10 @@
+# Copy to `.npmrc` (which is gitignored) and set ERP_NPM_TOKEN in your environment/CI.
+# Routes the @erp-platform scope to your PRIVATE registry. Never commit the real token.
+
+@erp-platform:registry=https://YOUR-PRIVATE-NPM-REGISTRY/
+//YOUR-PRIVATE-NPM-REGISTRY/:_authToken=${ERP_NPM_TOKEN}
+
+# Examples of private registries:
+#   GitHub Packages : https://npm.pkg.github.com/
+#   Azure Artifacts : https://pkgs.dev.azure.com/<org>/_packaging/<feed>/npm/registry/
+#   Verdaccio (self) : http://localhost:4873/

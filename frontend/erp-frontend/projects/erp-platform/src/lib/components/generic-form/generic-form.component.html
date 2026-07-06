@@ -1,0 +1,132 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="generic-form">
+  @for (section of effectiveSections; track $index) {
+    <section class="generic-form__section">
+      @if (section.title) {
+        <header class="generic-form__section-header">
+          <h3>{{ section.title }}</h3>
+          @if (section.description) {
+            <p>{{ section.description }}</p>
+          }
+        </header>
+      }
+
+      <div class="generic-form__grid">
+        @for (field of section.fields; track field.key) {
+          @if (!isHidden(field)) {
+            <div class="generic-form__field" [style.grid-column]="'span ' + (field.colSpan ?? 12)">
+              @switch (field.type) {
+
+                @case ('checkbox') {
+                  <mat-checkbox [formControlName]="field.key" (change)="onFieldInput(field)">
+                    {{ field.label }}
+                  </mat-checkbox>
+                }
+
+                @case ('switch') {
+                  <mat-slide-toggle [formControlName]="field.key" (change)="onFieldInput(field)">
+                    {{ field.label }}
+                  </mat-slide-toggle>
+                }
+
+                @case ('textarea') {
+                  <mat-form-field appearance="outline" class="generic-form__form-field">
+                    <mat-label>{{ field.label }}</mat-label>
+                    <textarea
+                      matInput
+                      [formControlName]="field.key"
+                      [placeholder]="field.placeholder ?? ''"
+                      rows="3"
+                      (input)="onFieldInput(field)"></textarea>
+                    @if (field.hint) { <mat-hint>{{ field.hint }}</mat-hint> }
+                    @if (form.get(field.key)?.hasError('required')) {
+                      <mat-error>{{ field.label }} is required.</mat-error>
+                    }
+                  </mat-form-field>
+                }
+
+                @case ('select') {
+                  <mat-form-field appearance="outline" class="generic-form__form-field">
+                    <mat-label>{{ field.label }}</mat-label>
+                    <mat-select [formControlName]="field.key" (selectionChange)="onFieldInput(field)">
+                      @for (option of field.options ?? []; track option.value) {
+                        <mat-option [value]="option.value" [disabled]="option.disabled">
+                          {{ option.label }}
+                        </mat-option>
+                      }
+                    </mat-select>
+                    @if (field.hint) { <mat-hint>{{ field.hint }}</mat-hint> }
+                    @if (form.get(field.key)?.hasError('required')) {
+                      <mat-error>{{ field.label }} is required.</mat-error>
+                    }
+                  </mat-form-field>
+                }
+
+                @case ('multiselect') {
+                  <mat-form-field appearance="outline" class="generic-form__form-field">
+                    <mat-label>{{ field.label }}</mat-label>
+                    <mat-select [formControlName]="field.key" multiple (selectionChange)="onFieldInput(field)">
+                      @for (option of field.options ?? []; track option.value) {
+                        <mat-option [value]="option.value" [disabled]="option.disabled">
+                          {{ option.label }}
+                        </mat-option>
+                      }
+                    </mat-select>
+                    @if (field.hint) { <mat-hint>{{ field.hint }}</mat-hint> }
+                    @if (form.get(field.key)?.hasError('required')) {
+                      <mat-error>{{ field.label }} is required.</mat-error>
+                    }
+                  </mat-form-field>
+                }
+
+                @case ('date') {
+                  <mat-form-field appearance="outline" class="generic-form__form-field">
+                    <mat-label>{{ field.label }}</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="picker"
+                      [formControlName]="field.key"
+                      (dateChange)="onFieldInput(field)" />
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    @if (field.hint) { <mat-hint>{{ field.hint }}</mat-hint> }
+                    @if (form.get(field.key)?.hasError('required')) {
+                      <mat-error>{{ field.label }} is required.</mat-error>
+                    }
+                  </mat-form-field>
+                }
+
+                @default {
+                  <mat-form-field appearance="outline" class="generic-form__form-field">
+                    <mat-label>{{ field.label }}</mat-label>
+                    <input
+                      matInput
+                      [type]="field.type"
+                      [formControlName]="field.key"
+                      [placeholder]="field.placeholder ?? ''"
+                      (input)="onFieldInput(field)" />
+                    @if (field.hint) { <mat-hint>{{ field.hint }}</mat-hint> }
+                    @if (form.get(field.key)?.hasError('required')) {
+                      <mat-error>{{ field.label }} is required.</mat-error>
+                    }
+                    @if (form.get(field.key)?.hasError('email')) {
+                      <mat-error>Enter a valid email address.</mat-error>
+                    }
+                  </mat-form-field>
+                }
+              }
+            </div>
+          }
+        }
+      </div>
+    </section>
+  }
+
+  @if (showActions && !isView) {
+    <div class="generic-form__actions">
+      <button mat-button type="button" (click)="cancel.emit()">{{ cancelLabel }}</button>
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+        {{ submitLabel }}
+      </button>
+    </div>
+  }
+</form>

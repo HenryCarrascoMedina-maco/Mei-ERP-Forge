@@ -1,0 +1,45 @@
+<header class="page-header">
+  @if (showBreadcrumb) {
+    <app-generic-breadcrumb
+      class="page-header__breadcrumb"
+      [items]="breadcrumbs"
+      [autoFromRoute]="autoBreadcrumb"></app-generic-breadcrumb>
+  }
+
+  <div class="page-header__bar">
+    <div class="page-header__titles">
+      <div class="page-header__title-row">
+        <h1 class="page-header__title">{{ title }}</h1>
+        @if (status) {
+          <app-generic-status-badge [status]="status"></app-generic-status-badge>
+        }
+      </div>
+      @if (subtitle) {
+        <p class="page-header__subtitle">{{ subtitle }}</p>
+      }
+    </div>
+
+    <div class="page-header__actions">
+      <ng-content select="[page-header-content]"></ng-content>
+
+      @if (secondaryActions.length) {
+        <app-generic-actions
+          [actions]="secondaryActions"
+          [context]="actionContext"
+          mode="menu"
+          (actionClick)="onSecondary($event)"></app-generic-actions>
+      }
+
+      @if (primaryVisible) {
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="primaryDisabled"
+          (click)="onPrimary()">
+          @if (primaryAction?.icon) { <mat-icon>{{ primaryAction!.icon }}</mat-icon> }
+          {{ primaryAction!.label }}
+        </button>
+      }
+    </div>
+  </div>
+</header>

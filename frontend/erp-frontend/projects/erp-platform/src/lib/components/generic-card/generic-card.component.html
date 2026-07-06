@@ -1,0 +1,35 @@
+<mat-card [class.generic-card--outlined]="outlined" [appearance]="outlined ? 'outlined' : 'raised'" class="generic-card">
+  @if (hasHeader) {
+    <div class="generic-card__header">
+      <div class="generic-card__heading">
+        @if (icon) {
+          <mat-icon class="generic-card__icon">{{ icon }}</mat-icon>
+        }
+        <div class="generic-card__titles">
+          @if (title) { <span class="generic-card__title">{{ title }}</span> }
+          @if (subtitle) { <span class="generic-card__subtitle">{{ subtitle }}</span> }
+        </div>
+      </div>
+
+      @if (actions.length) {
+        <app-generic-actions
+          [actions]="actions"
+          [context]="actionContext"
+          [mode]="actionsMode"
+          (actionClick)="actionClick.emit($event)"></app-generic-actions>
+      }
+    </div>
+  }
+
+  @if (loading) {
+    <mat-progress-bar mode="indeterminate" class="generic-card__progress"></mat-progress-bar>
+  }
+
+  <div class="generic-card__content">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="generic-card__footer">
+    <ng-content select="[card-footer]"></ng-content>
+  </div>
+</mat-card>

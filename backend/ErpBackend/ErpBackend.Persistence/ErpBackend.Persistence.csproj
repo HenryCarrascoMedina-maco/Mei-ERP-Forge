@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- NuGet package metadata. Assembly/namespace stay ErpBackend.* (rename is a later follow-up);
+       only the published PackageId is the product name. -->
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Ship the XML doc file without requiring 100% doc coverage. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <PackageId>ErpPlatform.Persistence</PackageId>
+    <Title>ERP Platform — Persistence (EF Core)</Title>
+    <Description>Opinionated, async-first EF Core persistence layer for the ERP Platform: ErpDbContext base (auditing + soft-delete), generic EfRepository, async pagination, provider-agnostic registration (SQLite default; SQL Server / PostgreSQL design-ready) and an idempotent data-seeding pipeline. Built on ErpPlatform.CrossCutting; keeps CrossCutting itself persistence-agnostic.</Description>
+    <PackageTags>erp;platform;efcore;persistence;sqlite;repository;pagination;framework</PackageTags>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+    <None Include="README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ErpBackend.CrossCutting\ErpBackend.CrossCutting.csproj" />
+  </ItemGroup>
+
+  <!-- Runs inside an ASP.NET Core host; the framework reference provides IConfiguration, the DI
+       container and the host abstractions used by AddErpPersistence / MigrateErpDatabaseAsync.
+       It is a shared-framework reference (no extra package download). -->
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <!-- EF Core + the default (SQLite) provider. SQL Server / PostgreSQL are wired via the
+       AddErpPersistence(configure: ...) lambda or future companion packages, so they are NOT
+       referenced here (keeps the default install light and provider-neutral). -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.8" />
+    <!-- Security override: EF Sqlite pulls SQLitePCLRaw.bundle_e_sqlite3 2.1.11, whose native
+         SQLitePCLRaw.lib.e_sqlite3 is flagged NU1903 / GHSA-2m69-gcr7-jv3q. bundle 3.0.3 brings the
+         patched native lib (lib.e_sqlite3 3.50.3) + a matching 3.x core. Referenced here (the
+         persistence root) so every project resolves the patched build transitively. -->
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.3" />
+  </ItemGroup>
+
+</Project>

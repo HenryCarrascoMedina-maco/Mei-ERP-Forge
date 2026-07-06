@@ -1,0 +1,37 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  gap: 1.5rem;
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__nav {
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto;
+  }
+
+  &__link--active {
+    font-weight: 700;
+    text-decoration: underline;
+  }
+}
+
+.app-loading {
+  position: sticky;
+  top: 64px;
+  z-index: 9;
+}
+
+.app-content {
+  display: block;
+}

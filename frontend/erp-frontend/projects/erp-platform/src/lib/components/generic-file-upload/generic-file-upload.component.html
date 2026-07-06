@@ -1,0 +1,48 @@
+<div class="file-upload">
+  <label
+    class="file-upload__dropzone"
+    [class.file-upload__dropzone--over]="dragOver()"
+    [class.file-upload__dropzone--disabled]="disabled"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)">
+    <input
+      type="file"
+      class="file-upload__input"
+      [accept]="accept"
+      [multiple]="multiple"
+      [disabled]="disabled"
+      (change)="onInputChange($event)" />
+    <mat-icon class="file-upload__icon">cloud_upload</mat-icon>
+    <span class="file-upload__label">{{ label }}</span>
+    @if (allowedExtensions.length || maxSizeMb) {
+      <span class="file-upload__hint">
+        @if (allowedExtensions.length) { {{ allowedExtensions.join(', ') }} }
+        @if (maxSizeMb) { · up to {{ maxSizeMb }} MB }
+      </span>
+    }
+  </label>
+
+  @if (files().length) {
+    <ul class="file-upload__list">
+      @for (file of files(); track file.name; let i = $index) {
+        <li class="file-upload__item">
+          <mat-icon class="file-upload__item-icon">description</mat-icon>
+          <span class="file-upload__item-name">{{ file.name }}</span>
+          <span class="file-upload__item-size">{{ file.size | fileSize }}</span>
+          <button type="button" mat-icon-button (click)="remove(i)" aria-label="Remove file">
+            <mat-icon>close</mat-icon>
+          </button>
+        </li>
+      }
+    </ul>
+  }
+
+  @if (validationErrors().length) {
+    <ul class="file-upload__errors">
+      @for (error of validationErrors(); track error) {
+        <li>{{ error }}</li>
+      }
+    </ul>
+  }
+</div>

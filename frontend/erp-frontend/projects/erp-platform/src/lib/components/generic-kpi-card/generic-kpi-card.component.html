@@ -1,0 +1,30 @@
+<mat-card
+  class="kpi-card kpi-card--{{ status }}"
+  [class.kpi-card--clickable]="clickable"
+  (click)="onClick()">
+  @if (loading) {
+    <div class="kpi-card__loading">
+      <mat-spinner diameter="32"></mat-spinner>
+    </div>
+  } @else {
+    <div class="kpi-card__body">
+      <div class="kpi-card__info">
+        <span class="kpi-card__title">{{ title }}</span>
+        <span class="kpi-card__value">{{ value ?? '—' }}</span>
+
+        @if (percentage !== undefined && percentage !== null) {
+          <span class="kpi-card__trend kpi-card__trend--{{ trend }}">
+            <mat-icon class="kpi-card__trend-icon">{{ trendIcon }}</mat-icon>
+            {{ percentage }}%
+          </span>
+        }
+      </div>
+
+      @if (icon) {
+        <div class="kpi-card__icon-wrap">
+          <mat-icon class="kpi-card__icon">{{ icon }}</mat-icon>
+        </div>
+      }
+    </div>
+  }
+</mat-card>

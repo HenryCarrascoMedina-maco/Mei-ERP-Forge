@@ -1,0 +1,37 @@
+.generic-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0 0.75rem;
+    align-items: start;
+  }
+
+  &__field {
+    min-width: 0;
+
+    &--search {
+      grid-column: span 4;
+    }
+  }
+
+  &__control {
+    width: 100%;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    &__field,
+    &__field--search {
+      grid-column: span 12 !important;
+    }
+  }
+}

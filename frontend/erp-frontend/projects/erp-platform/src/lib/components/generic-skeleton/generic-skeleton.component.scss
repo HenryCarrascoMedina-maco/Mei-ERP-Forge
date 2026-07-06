@@ -1,0 +1,102 @@
+.skeleton {
+  display: block;
+  width: 100%;
+
+  &__box {
+    display: block;
+    background: #e2e5e9;
+    border-radius: 4px;
+    height: 1rem;
+  }
+
+  &--animated &__box {
+    background: linear-gradient(90deg, #e2e5e9 25%, #eef0f2 37%, #e2e5e9 63%);
+    background-size: 400% 100%;
+    animation: skeleton-shimmer 1.4s ease infinite;
+  }
+
+  // table -------------------------------------------------------------------
+  &__table-header,
+  &__table-row {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.625rem 0;
+  }
+
+  &__table-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  &__table-header .skeleton__box {
+    height: 0.85rem;
+    flex: 1;
+  }
+
+  &__table-row .skeleton__box {
+    flex: 1;
+  }
+
+  // form / detail -----------------------------------------------------------
+  &__field {
+    margin-bottom: 1rem;
+  }
+
+  &__box--label {
+    width: 30%;
+    height: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__box--input {
+    height: 2.5rem;
+  }
+
+  &__detail-row {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem 0;
+  }
+
+  &__box--value {
+    flex: 1;
+  }
+
+  // card --------------------------------------------------------------------
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding: 1rem;
+  }
+
+  &__box--title {
+    width: 40%;
+    height: 1.25rem;
+  }
+
+  &__box--line {
+    height: 0.85rem;
+    margin-bottom: 0.25rem;
+  }
+
+  &__box--short {
+    width: 60%;
+  }
+
+  // dashboard ---------------------------------------------------------------
+  &__dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  &__box--kpi {
+    height: 96px;
+    border-radius: 8px;
+  }
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}

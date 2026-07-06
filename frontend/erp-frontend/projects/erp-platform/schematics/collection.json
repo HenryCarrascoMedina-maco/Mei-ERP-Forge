@@ -1,0 +1,14 @@
+{
+  "schematics": {
+    "ng-add": {
+      "description": "Wire @erp-platform/core into the host app (HttpClient + interceptors, animations, provideErpPlatform).",
+      "factory": "./ng-add/index#ngAdd",
+      "schema": "./ng-add/schema.json"
+    },
+    "module": {
+      "description": "Generate a complete Angular ERP module (model, service, list page, route, menu, permissions) from a <Module>.module.json manifest.",
+      "factory": "./module/index#moduleSchematic",
+      "schema": "./module/schema.json"
+    }
+  }
+}

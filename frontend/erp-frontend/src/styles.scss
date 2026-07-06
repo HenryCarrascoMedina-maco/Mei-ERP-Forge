@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Standard module page layout used by all feature screens (shared, DRY). */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+}
+
+/* Snackbar toast variants used by ToastService panelClass. */
+.toast-success { --mdc-snackbar-container-color: #1b873f; }
+.toast-error   { --mdc-snackbar-container-color: #b3261e; }
+.toast-warning { --mdc-snackbar-container-color: #9a6700; }
+.toast-info    { --mdc-snackbar-container-color: #1f5fad; }

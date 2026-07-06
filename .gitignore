@@ -1,0 +1,29 @@
+# --- Secrets / credentials (NEVER commit) ---
+.npmrc
+nuget.config
+*.token
+*.secret
+.env
+.env.*
+
+# --- Publish artifacts ---
+dist-packages/
+*.tgz
+*.nupkg
+*.snupkg
+
+# --- Build output (also covered by per-project gitignores) ---
+**/dist/
+**/bin/
+**/obj/
+**/node_modules/
+
+# --- Local SQLite databases (created at runtime; never commit) ---
+*.db
+*.db-shm
+*.db-wal
+
+# Keep the committed examples
+!.npmrc.example
+!nuget.config.example
+!deploy/.env.example

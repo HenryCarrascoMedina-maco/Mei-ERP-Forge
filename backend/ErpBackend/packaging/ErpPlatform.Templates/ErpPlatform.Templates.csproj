@@ -1,0 +1,29 @@
+<!--
+  ERP Platform — dotnet new template pack (SCAFFOLD BASE).
+  Structure is ready; the actual `erp-module` template content is added in Slice 2 (backend generator).
+  Not part of the solution and not packed yet (a template pack needs at least one template under templates/).
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageType>Template</PackageType>
+    <PackageId>ErpPlatform.Templates</PackageId>
+    <Title>ERP Platform — dotnet new templates</Title>
+    <Description>dotnet new templates for the ERP Platform (e.g. `dotnet new erp-module`). Scaffold — backend module generation (Slice 2) is not implemented yet.</Description>
+    <PackageTags>dotnet-new;templates;erp;platform</PackageTags>
+
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>content</ContentTargetFolders>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="templates\**\*" Exclude="templates\**\bin\**;templates\**\obj\**" />
+    <Compile Remove="**\*" />
+  </ItemGroup>
+
+</Project>
